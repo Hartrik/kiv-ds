@@ -10,9 +10,9 @@
     </parent>
 
     <groupId>cz.harag.ds.cv01</groupId>
-    <artifactId>client</artifactId>
+    <artifactId>lib-client-shuffler</artifactId>
     <packaging>jar</packaging>
-    <name>client</name>
+    <name>lib-client-shuffler</name>
     <version>1.0.0</version>
 
     <build>
@@ -64,33 +64,6 @@
                         <configuration>
                             <outputDirectory>${project.build.directory}/lib</outputDirectory>
                         </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.0.0</version>
-                <configuration>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <appendAssemblyId>false</appendAssemblyId>
-                    <archive>
-                        <manifest>
-                            <mainClass>
-                                cz.harag.ds.cv01.client.Main
-                            </mainClass>
-                        </manifest>
-                    </archive>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>build-jar-with-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
                     </execution>
                 </executions>
             </plugin>
@@ -199,12 +172,6 @@
     </profiles>
 
     <dependencies>
-        <dependency>
-            <groupId>cz.harag.ds.cv01</groupId>
-            <artifactId>lib-client-sequencer</artifactId>
-            <version>1.0.0</version>
-        </dependency>
-
         <dependency>
             <groupId>io.swagger</groupId>
             <artifactId>swagger-annotations</artifactId>

@@ -1,15 +1,15 @@
 # DefaultApi
 
-All URIs are relative to *https://localhost*
+All URIs are relative to *https://virtserver.swaggerhub.com/Hartrik/KIV-DS-01-server/1.0.0*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**sequencerPost**](DefaultApi.md#sequencerPost) | **POST** /sequencer | Accepts financial operation
+[**shufflerPost**](DefaultApi.md#shufflerPost) | **POST** /shuffler | Accepts financial operation
 
 
-<a name="sequencerPost"></a>
-# **sequencerPost**
-> sequencerPost(operation)
+<a name="shufflerPost"></a>
+# **shufflerPost**
+> shufflerPost(operation)
 
 Accepts financial operation
 
@@ -23,9 +23,9 @@ Accepts financial operation
 DefaultApi apiInstance = new DefaultApi();
 Operation operation = new Operation(); // Operation | Financial operation to perform
 try {
-    apiInstance.sequencerPost(operation);
+    apiInstance.shufflerPost(operation);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#sequencerPost");
+    System.err.println("Exception when calling DefaultApi#shufflerPost");
     e.printStackTrace();
 }
 ```
