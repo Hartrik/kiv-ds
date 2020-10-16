@@ -46,6 +46,13 @@ public class Main {
 				SERVER_BASE_PATHS.addAll(Arrays.asList(args).subList(2, args.length));
 			}
 
+			if (serverType == ServerType.SEQUENCER) {
+				System.out.println("SHUFFLER_BASE_PATH: " + SHUFFLER_BASE_PATH);
+			}
+			if (serverType == ServerType.SHUFFLER) {
+				System.out.println("SERVER_BASE_PATHS: " + SERVER_BASE_PATHS);
+			}
+
 			Server server = configureServer(serverPort, serverType);
 			server.start();
 			server.join();
