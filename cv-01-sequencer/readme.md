@@ -15,12 +15,13 @@ java -jar client-1.0.0.jar http://localhost:8080 50
 ```
 
 ## Spuštění
-1) build.cmd
-2) wsl
-3) vagrant up
-4) vagrant ssh sequencer   # pass: vagrant
-5) cd /vagrant
-6) java -jar client-1.0.0.jar http://10.0.3.60:8080 20
-7) vagrant destroy -f
+1) `build.cmd`
+2) `wsl`
+3) `vagrant up`
+4) `vagrant ssh sequencer`
+    (pass: vagrant)
+5) `cd /vagrant`
+6) `java -jar client-1.0.0.jar http://10.0.3.60:8080 20`
+7) `vagrant destroy -f`
 
 Logy lze najít v tomto adresáři.
