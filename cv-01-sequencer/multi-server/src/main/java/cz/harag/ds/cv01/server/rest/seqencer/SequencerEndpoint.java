@@ -18,27 +18,27 @@ import javax.ws.rs.core.MediaType;
 @Path("/sequencer")
 public class SequencerEndpoint {
 
-	private static final AtomicLong atomicLong = new AtomicLong();
+    private static final AtomicLong atomicLong = new AtomicLong();
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response process(SequencerRequest sequencerRequest) {
-		System.out.println("Received " + sequencerRequest);
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response process(SequencerRequest sequencerRequest) {
+        System.out.println("Received " + sequencerRequest);
 
-		ApiClient configuration = Configuration.getDefaultApiClient();
-		configuration.setBasePath(Main.SHUFFLER_BASE_PATH);
-		DefaultApi apiInstance = new DefaultApi(configuration);
+        ApiClient configuration = Configuration.getDefaultApiClient();
+        configuration.setBasePath(Main.SHUFFLER_BASE_PATH);
+        DefaultApi apiInstance = new DefaultApi(configuration);
 
-		Operation operation = new Operation();
-		operation.setValue(sequencerRequest.getValue());
-		operation.setId(atomicLong.getAndIncrement());
-		try {
-			apiInstance.shufflerPost(operation);
-			return new Response("OK");
-		} catch (ApiException e) {
-			e.printStackTrace();
-			return new Response(e.getMessage());
-		}
-	}
+        Operation operation = new Operation();
+        operation.setValue(sequencerRequest.getValue());
+        operation.setId(atomicLong.getAndIncrement());
+        try {
+            apiInstance.shufflerPost(operation);
+            return new Response("OK");
+        } catch (ApiException e) {
+            e.printStackTrace();
+            return new Response(e.getMessage());
+        }
+    }
 
 }

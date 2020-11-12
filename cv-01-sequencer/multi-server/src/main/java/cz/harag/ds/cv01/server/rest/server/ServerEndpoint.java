@@ -12,35 +12,35 @@ import javax.ws.rs.core.MediaType;
 @Path("/server")
 public class ServerEndpoint {
 
-	private static final PriorityQueue<ServerRequest> requests = new PriorityQueue<>();
-	private static long lastId = -1;
-	private static long balance = 0;
+    private static final PriorityQueue<ServerRequest> requests = new PriorityQueue<>();
+    private static long lastId = -1;
+    private static long balance = 0;
 
-	@POST
-	@Consumes(MediaType.APPLICATION_JSON)
-	public Response process(ServerRequest request) {
-		synchronized (requests) {
-			System.out.println("Received " + request);
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response process(ServerRequest request) {
+        synchronized (requests) {
+            System.out.println("Received " + request);
 
-			requests.add(request);
+            requests.add(request);
 
-			boolean hasNext = hasNext();
-			if (hasNext) {
-				do {
-					ServerRequest r = requests.poll();
-					balance += r.getValue();
-					lastId = r.getId();
-					System.out.println(" | Executed " + r + " balance: " + balance);
-				} while (hasNext());
-			} else {
-				System.out.println(" | Waiting for op with id = " + (lastId + 1) + "; in queue: " + requests.size());
-			}
-			return new Response("OK");
-		}
-	}
+            boolean hasNext = hasNext();
+            if (hasNext) {
+                do {
+                    ServerRequest r = requests.poll();
+                    balance += r.getValue();
+                    lastId = r.getId();
+                    System.out.println(" | Executed " + r + " balance: " + balance);
+                } while (hasNext());
+            } else {
+                System.out.println(" | Waiting for op with id = " + (lastId + 1) + "; in queue: " + requests.size());
+            }
+            return new Response("OK");
+        }
+    }
 
-	private boolean hasNext() {
-		return !requests.isEmpty() && (lastId + 1) == (long) requests.peek().getId();
-	}
+    private boolean hasNext() {
+        return !requests.isEmpty() && (lastId + 1) == (long) requests.peek().getId();
+    }
 
 }
