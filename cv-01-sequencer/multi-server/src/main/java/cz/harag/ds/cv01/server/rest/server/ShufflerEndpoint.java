@@ -22,7 +22,7 @@ public class ShufflerEndpoint {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response process(final ShufflerRequest sequencerRequest) {
-		System.out.println("Shuffling " + sequencerRequest);
+		System.out.println("Received " + sequencerRequest);
 
 		for (String path : Main.SERVER_BASE_PATHS) {
 			postWithRandomDelay(sequencerRequest, path);
@@ -38,8 +38,9 @@ public class ShufflerEndpoint {
 					Thread.sleep((long) (Math.random() * MAX_DELAY));
 				} catch (InterruptedException e) {
 					e.printStackTrace();
+				} finally {
+					post(sequencerRequest, basePath);
 				}
-				post(sequencerRequest, basePath);
 			}
 		}).start();
 	}
@@ -54,6 +55,7 @@ public class ShufflerEndpoint {
 		operation.setId(sequencerRequest.getId());
 		try {
 			apiInstance.serverPost(operation);
+			System.out.println("Posted: " + sequencerRequest + " to " + basePath);
 		} catch (ApiException e) {
 			e.printStackTrace();
 		}

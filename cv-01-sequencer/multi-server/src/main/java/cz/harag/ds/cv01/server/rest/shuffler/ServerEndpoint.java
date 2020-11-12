@@ -19,19 +19,28 @@ public class ServerEndpoint {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response process(ServerRequest request) {
-		synchronized (ServerRequest.class) {
+		synchronized (requests) {
 			System.out.println("Received " + request);
 
 			requests.add(request);
 
-			while (!requests.isEmpty() && lastId + 1 == requests.peek().getId()) {
-				ServerRequest r = requests.poll();
-				balance += r.getValue();
-				lastId = r.getId();
-				System.out.println(" | Executed " + r + " // " + balance);
+			boolean hasNext = hasNext();
+			if (hasNext) {
+				do {
+					ServerRequest r = requests.poll();
+					balance += r.getValue();
+					lastId = r.getId();
+					System.out.println(" | Executed " + r + " balance: " + balance);
+				} while (hasNext());
+			} else {
+				System.out.println(" | Waiting for op with id = " + (lastId + 1) + "; in queue: " + requests.size());
 			}
+			return new Response("OK");
 		}
-		return new Response("OK");
+	}
+
+	private boolean hasNext() {
+		return !requests.isEmpty() && (lastId + 1) == (long) requests.peek().getId();
 	}
 
 }

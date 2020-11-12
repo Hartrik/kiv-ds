@@ -1,8 +1,5 @@
 package cz.harag.ds.cv01.server.model;
 
-import java.util.Comparator;
-import org.codehaus.jackson.map.util.Comparators;
-
 /**
  * @author Patrik Harag
  * @version 2020-10-15

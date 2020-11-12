@@ -23,7 +23,7 @@ public class SequencerEndpoint {
 	@POST
 	@Consumes(MediaType.APPLICATION_JSON)
 	public Response process(SequencerRequest sequencerRequest) {
-		System.out.println("Sequencing " + sequencerRequest);
+		System.out.println("Received " + sequencerRequest);
 
 		ApiClient configuration = Configuration.getDefaultApiClient();
 		configuration.setBasePath(Main.SHUFFLER_BASE_PATH);
