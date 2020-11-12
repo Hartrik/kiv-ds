@@ -43,6 +43,7 @@ java -jar client-1.0.0.jar http://localhost:8080 50
     (pass: vagrant)
 5) `cd /vagrant`
 6) `java -jar client-1.0.0.jar http://10.0.3.60:8080 20`
-7) `vagrant destroy -f`
+7) `exit`
+8) `vagrant destroy -f`
 
 Logy lze pak najít v tomto adresáři.
