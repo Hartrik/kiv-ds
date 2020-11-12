@@ -1,4 +1,4 @@
-package cz.harag.ds.cv01.server.rest.shuffler;
+package cz.harag.ds.cv01.server.rest.server;
 
 import cz.harag.ds.cv01.server.model.Response;
 import cz.harag.ds.cv01.server.model.ServerRequest;

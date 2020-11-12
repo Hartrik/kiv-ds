@@ -1,8 +1,8 @@
 package cz.harag.ds.cv01.server;
 
 import cz.harag.ds.cv01.server.rest.seqencer.SequencerEndpoint;
-import cz.harag.ds.cv01.server.rest.server.ShufflerEndpoint;
-import cz.harag.ds.cv01.server.rest.shuffler.ServerEndpoint;
+import cz.harag.ds.cv01.server.rest.shuffler.ShufflerEndpoint;
+import cz.harag.ds.cv01.server.rest.server.ServerEndpoint;
 
 /**
  * @author Patrik Harag

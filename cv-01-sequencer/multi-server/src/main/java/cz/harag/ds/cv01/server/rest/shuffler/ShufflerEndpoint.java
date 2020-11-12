@@ -1,4 +1,4 @@
-package cz.harag.ds.cv01.server.rest.server;
+package cz.harag.ds.cv01.server.rest.shuffler;
 
 import cz.harag.ds.cv01.client.server.ApiClient;
 import cz.harag.ds.cv01.client.server.ApiException;
