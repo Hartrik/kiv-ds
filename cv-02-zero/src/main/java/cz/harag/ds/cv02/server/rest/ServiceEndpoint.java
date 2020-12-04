@@ -1,5 +1,6 @@
 package cz.harag.ds.cv02.server.rest;
 
+import cz.harag.ds.cv02.server.Main;
 import cz.harag.ds.cv02.server.model.Response;
 
 import javax.ws.rs.Consumes;
@@ -21,7 +22,7 @@ public class ServiceEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("status")
 	public Response status() {
-		return new Response("OK");
+		return new Response("Balance: " + Main.BANK.getBalance());
 	}
 
 }

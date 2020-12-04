@@ -12,6 +12,8 @@ import org.glassfish.jersey.servlet.ServletContainer;
 
 public class Main {
 
+    public static Bank BANK;
+
 	public static void main(String[] args) throws Exception {
 		if (args.length != 3) {
 			printHelpAndExit();
@@ -37,10 +39,10 @@ public class Main {
 				connections.add(new BankConnection(bindAddresses.get(i), connectAddresses.get(i)));
 			}
 
-			Bank bank = new Bank(connections);
-			bank.bindAll();
-			bank.connectAll();
-			bank.startGenerator();
+            BANK = new Bank(connections);
+            BANK.bindAll();
+            BANK.connectAll();
+            BANK.startGenerator();
 
 			System.out.println("Starting service REST server at port " + serviceRestApiPort);
 			Server server = configureServer(serviceRestApiPort);

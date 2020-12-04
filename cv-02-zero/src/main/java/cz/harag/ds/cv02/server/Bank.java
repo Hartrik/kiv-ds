@@ -30,6 +30,10 @@ public class Bank {
         this.balance = DEFAULT_BALANCE;
     }
 
+    public synchronized int getBalance() {
+        return balance;
+    }
+
     public void bindAll() {
         for (final BankConnection connection : bankConnections) {
             Thread thread = new Thread(new Runnable() {
