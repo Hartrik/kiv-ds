@@ -32,4 +32,12 @@ public class MessageOperation {
     public void setOperation(OperationType operation) {
         this.operation = operation;
     }
+
+    @Override
+    public String toString() {
+        return "MessageOperation{" +
+                "value=" + value +
+                ", operation=" + operation +
+                '}';
+    }
 }
