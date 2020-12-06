@@ -100,6 +100,7 @@ public class Bank {
                 retardation();
                 synchronized (this) {
                     int marker = op.getValue();
+                    System.out.printf("OP: %s%n", op);
 
                     Snapshot snapshot = snapshots.get(marker);
                     if (snapshot == null) {
@@ -134,15 +135,15 @@ public class Bank {
                     // process operation itself
                     if (op.getOperation() == OperationType.CREDIT) {
                         balance += op.getValue();
-                        System.out.printf("OP: credit %d, status: %d%n", op.getValue(), balance);
+                        System.out.printf("OP: %s, status: %d%n", op, balance);
                     } else if (op.getOperation() == OperationType.DEBIT) {
                         if (balance >= op.getValue()) {
                             balance -= op.getValue();
                             sendAsync(address, new MessageOperation(op.getValue(), OperationType.CREDIT), null);
-                            System.out.printf("OP: debit %d, status: %d%n", op.getValue(), balance);
+                            System.out.printf("OP: %s, status: %d%n", op, balance);
                         } else {
                             response = "f";
-                            System.out.printf("OP: debit %d FAILED, status: %d%n", op.getValue(), balance);
+                            System.out.printf("OP: %s FAILED, status: %d%n", op, balance);
                         }
                     }
                 }
@@ -167,20 +168,27 @@ public class Bank {
         if (random.nextBoolean()) {
 //        if (false) {
             // send money to rnd bank
+            MessageOperation operation;
             synchronized (this) {
                 rndValue = Math.min(balance, rndValue);
                 balance -= rndValue;
+                operation = new MessageOperation(rndValue, OperationType.CREDIT);
+                System.out.printf("GEN: %s, status: %d%n", operation, balance);
             }
-            if (!send(rndAddress, new MessageOperation(rndValue, OperationType.CREDIT))) {
+            if (!send(rndAddress, operation)) {
                 // OP failed
                 synchronized (this) {
                     balance += rndValue;
-                    System.out.printf("GEN OP failed, reverting: %d, status: %d%n", rndValue, balance);
+                    System.out.printf("GEN OP failed, reverting: %s, status: %d%n", operation, balance);
                 }
             }
         } else {
+            MessageOperation operation = new MessageOperation(rndValue, OperationType.DEBIT);
+            synchronized (this) {
+                System.out.printf("GEN: %s%n", operation);
+            }
             // get money from rnd bank
-            send(rndAddress, new MessageOperation(rndValue, OperationType.DEBIT));
+            send(rndAddress, operation);
         }
     }
 
@@ -245,6 +253,7 @@ public class Bank {
         int marker = Math.abs(random.nextInt());
 
         synchronized (this) {
+            System.out.println("OP: marker " + marker + " (REST API)");
             Snapshot snapshot = snapshots.get(marker);
             if (snapshot == null) {
                 snapshot = new Snapshot(marker, balance);

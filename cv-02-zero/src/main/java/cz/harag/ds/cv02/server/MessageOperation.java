@@ -35,9 +35,6 @@ public class MessageOperation {
 
     @Override
     public String toString() {
-        return "MessageOperation{" +
-                "value=" + value +
-                ", operation=" + operation +
-                '}';
+        return operation.name().toLowerCase() + " " + value;
     }
 }
