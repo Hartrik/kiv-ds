@@ -4,6 +4,7 @@ import cz.harag.ds.cv02.server.Main;
 import cz.harag.ds.cv02.server.Snapshot;
 import cz.harag.ds.cv02.server.model.Response;
 
+import java.util.Random;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -17,13 +18,23 @@ public class ServiceEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("snapshot")
 	public Response snapshot() {
-		int snapshot = Main.BANK.scheduleSnapshot();
-		return new Response("" + snapshot);
+		Random random = new Random();
+		int marker = Math.abs(random.nextInt());
+		Main.BANK.scheduleSnapshot(marker);
+		return new Response("Snapshot scheduled with id=" + marker);
 	}
 
 	@GET
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("snapshot/{marker}")
+	public Response snapshot(@PathParam("marker") int marker) {
+		Main.BANK.scheduleSnapshot(marker);
+		return new Response("Snapshot scheduled with id=" + marker);
+	}
+
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("snapshot/{marker}/status")
 	public Response snapshotStatus(@PathParam("marker") int marker) {
 		Snapshot snapshot = Main.BANK.getSnapshot(marker);
 		return new Response(snapshot.toString());
@@ -34,6 +45,25 @@ public class ServiceEndpoint {
 	@Path("status")
 	public Response status() {
 		return new Response("Balance: " + Main.BANK.getBalance());
+	}
+
+	@GET
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Path("shutdown")
+	public Response shutdown() {
+		Thread thread = new Thread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// ignore
+				}
+				System.exit(0);
+			}
+		});
+		thread.start();
+		return new Response("Ok");
 	}
 
 }

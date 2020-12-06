@@ -25,6 +25,7 @@ public class Bank {
     private final Map<Integer, Snapshot> snapshots;
     private int balance;
 
+    // TODO: restrict capacity & correct addition
     private final BlockingQueue<FutureTask<?>> queue = new LinkedBlockingQueue<>();
 
     public Bank(List<BankConnection> bankConnections) {
@@ -274,10 +275,7 @@ public class Bank {
         return snapshots.get(marker);
     }
 
-    public int scheduleSnapshot() {
-        Random random = new Random();
-        final int marker = Math.abs(random.nextInt());
-
+    public int scheduleSnapshot(final int marker) {
         FutureTask<Void> task = new FutureTask<>(new Callable<Void>() {
             @Override
             public Void call() throws IOException {
