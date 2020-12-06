@@ -123,7 +123,7 @@ public class Bank {
 
             FutureTask<Boolean> task = new FutureTask<>(new Callable<Boolean>() {
                 @Override
-                public Boolean call() {
+                public Boolean call() throws IOException {
                     return processOperation(address, op);
                 }
             });
@@ -133,7 +133,7 @@ public class Bank {
         }
     }
 
-    private boolean processOperation(BankConnection address, MessageOperation op) {
+    private boolean processOperation(BankConnection address, MessageOperation op) throws IOException {
         if (op.getOperation() == OperationType.MARKER) {
             int marker = op.getValue();
             log("OP: %s%n", op);
@@ -146,7 +146,7 @@ public class Bank {
 
                 // Propagate...
                 for (BankConnection bank : bankConnections) {
-                    scheduleSend(bank, op);
+                    send(bank, op);
                 }
             }
 
@@ -174,11 +174,11 @@ public class Bank {
                 if (balance >= op.getValue()) {
                     balance -= op.getValue();
                     log("OP: %s, status: %d%n", op, balance);
-                    scheduleSend(address, new MessageOperation(op.getValue(), OperationType.CREDIT));
+                    send(address, new MessageOperation(op.getValue(), OperationType.CREDIT));
                     return true;
                 } else {
                     log("OP: %s FAILED, status: %d%n", op, balance);
-                    scheduleSend(address, new MessageOperation(op.getValue(), OperationType.DEBIT_REFUSED));
+                    send(address, new MessageOperation(op.getValue(), OperationType.DEBIT_REFUSED));
                     return false;
                 }
             } else if (op.getOperation() == OperationType.DEBIT_REFUSED) {
@@ -254,21 +254,6 @@ public class Bank {
         return stringMsg.equalsIgnoreCase("accepted");
     }
 
-    private Future<Boolean> scheduleSend(final BankConnection address, final MessageOperation operation) {
-        FutureTask<Boolean> task = new FutureTask<>(new Callable<Boolean>() {
-            @Override
-            public Boolean call() {
-                try {
-                    return send(address, operation);
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-        queue.add(task);
-        return task;
-    }
-
     private void retardation() {
         try {
             Thread.sleep((long) (Math.random() * MAX_RETARDATION));
@@ -295,13 +280,13 @@ public class Bank {
 
         FutureTask<Void> task = new FutureTask<>(new Callable<Void>() {
             @Override
-            public Void call() {
+            public Void call() throws IOException {
                 MessageOperation operation = new MessageOperation(marker, OperationType.MARKER);
-                log("OP: marker %s (REST API)%n", operation);
+                log("OP: %s (REST API)%n", operation);
                 Snapshot snapshot = new Snapshot(marker, balance);
                 snapshots.put(marker, snapshot);
                 for (BankConnection bank : bankConnections) {
-                    scheduleSend(bank, operation);
+                    send(bank, operation);
                 }
                 return null;
             }
