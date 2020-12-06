@@ -123,21 +123,19 @@ public class Bank {
                     }
                 }
             } else {
-                // process snapshots
-                for (Snapshot snapshot : snapshots.values()) {
-                    if (!snapshot.isFinished() && !snapshot.getMarkersGot().contains(address)) {
-                        snapshot.getOperations().add(op);
+                synchronized (this) {
+                    // process snapshots
+                    for (Snapshot snapshot : snapshots.values()) {
+                        if (!snapshot.isFinished() && !snapshot.getMarkersGot().contains(address)) {
+                            snapshot.getOperations().add(op);
+                        }
                     }
-                }
 
-                // process operation itself
-                if (op.getOperation() == OperationType.CREDIT) {
-                    synchronized (this) {
+                    // process operation itself
+                    if (op.getOperation() == OperationType.CREDIT) {
                         balance += op.getValue();
                         System.out.printf("OP: credit %d, status: %d%n", op.getValue(), balance);
-                    }
-                } else if (op.getOperation() == OperationType.DEBIT) {
-                    synchronized (this) {
+                    } else if (op.getOperation() == OperationType.DEBIT) {
                         if (balance >= op.getValue()) {
                             balance -= op.getValue();
                             sendAsync(address, new MessageOperation(op.getValue(), OperationType.CREDIT), null);
