@@ -17,7 +17,7 @@ public class ServiceEndpoint {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Path("snapshot")
 	public Response snapshot() {
-		int snapshot = Main.BANK.snapshot();
+		int snapshot = Main.BANK.scheduleSnapshot();
 		return new Response("" + snapshot);
 	}
 

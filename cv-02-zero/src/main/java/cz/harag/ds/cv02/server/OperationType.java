@@ -5,5 +5,5 @@ package cz.harag.ds.cv02.server;
  * @version 2020-12-05
  */
 public enum OperationType {
-    CREDIT, DEBIT, MARKER
+    CREDIT, DEBIT, MARKER, DEBIT_REFUSED
 }

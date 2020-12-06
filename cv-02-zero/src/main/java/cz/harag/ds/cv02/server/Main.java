@@ -43,6 +43,7 @@ public class Main {
             BANK.bindAll();
             BANK.connectAll();
             BANK.startGenerator();
+            BANK.startWorker();
 
 			System.out.println("Starting service REST server at port " + serviceRestApiPort);
 			Server server = configureServer(serviceRestApiPort);
