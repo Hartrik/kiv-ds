@@ -137,7 +137,7 @@ public class Bank {
     private boolean processOperation(BankConnection address, MessageOperation op) throws IOException {
         if (op.getOperation() == OperationType.MARKER) {
             int marker = op.getValue();
-            log("OP: %s%n", op);
+            log("%s OP: %s%n", address.getConnectAddress(), op);
 
             Snapshot snapshot = snapshots.get(marker);
             if (snapshot == null) {
@@ -170,20 +170,20 @@ public class Bank {
             // process operation itself
             if (op.getOperation() == OperationType.CREDIT) {
                 balance += op.getValue();
-                log("OP: %s, status: %d%n", op, balance);
+                log("%s OP: %s, status: %d%n", address.getConnectAddress(), op, balance);
             } else if (op.getOperation() == OperationType.DEBIT) {
                 if (balance >= op.getValue()) {
                     balance -= op.getValue();
-                    log("OP: %s, status: %d%n", op, balance);
+                    log("%s OP: %s, status: %d%n", address.getConnectAddress(), op, balance);
                     send(address, new MessageOperation(op.getValue(), OperationType.CREDIT));
                     return true;
                 } else {
-                    log("OP: %s FAILED, status: %d%n", op, balance);
+                    log("%s OP: %s FAILED, status: %d%n", address.getConnectAddress(), op, balance);
                     send(address, new MessageOperation(op.getValue(), OperationType.DEBIT_REFUSED));
                     return false;
                 }
             } else if (op.getOperation() == OperationType.DEBIT_REFUSED) {
-                log("OP: %s, status: %d%n", op, balance);
+                log("%s OP: %s, status: %d%n", address.getConnectAddress(), op, balance);
             }
         }
         return true;
@@ -210,7 +210,7 @@ public class Bank {
                         int rndValueMin = Math.min(balance, rndValue);
                         balance -= rndValueMin;
                         MessageOperation operation = new MessageOperation(rndValueMin, OperationType.CREDIT);
-                        log("GEN: %s, status: %d%n", operation, balance);
+                        log("%s GEN: %s, status: %d%n", rndAddress.getConnectAddress(), operation, balance);
                         return send(rndAddress, operation);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
@@ -228,7 +228,7 @@ public class Bank {
                 @Override
                 public Boolean call() {
                     try {
-                        log("GEN: %s%n", operation);
+                        log("%s GEN: %s%n", rndAddress.getConnectAddress(), operation);
                         return send(rndAddress, operation);
                     } catch (IOException e) {
                         throw new RuntimeException(e);
