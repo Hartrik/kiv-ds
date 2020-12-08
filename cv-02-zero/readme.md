@@ -58,7 +58,7 @@ Komplexní příklady viz ukázky.
     4---------3
     ```
     
-    Example output:
+    Příklad předpokládaného výstupu:
     ```
     Starting...
     
@@ -98,4 +98,19 @@ Loguje se do stejných souborů jako výše.
 1) `mvn package`
 2) `vagrant up`
 3) `./vagrant_run-snapshot.sh` – spustí checkout z prvního uzlu. Možno spouštět opakovaně.
+
+    Příklad předpokládaného výstupu:
+    ```
+    Create snapshot with id=12575...
+    {"msg":"Snapshot scheduled with id=12575"}
+    
+    Waiting for snapshot to complete...
+    
+    Print snapshot...
+    1: {"msg":"Snapshot{marker=12575, status=4811664, operations=[credit 47365, credit 35932, credit 49098], operationsSum=132395, finished=true}"}
+    2: {"msg":"Snapshot{marker=12575, status=4967860, operations=[], operationsSum=0, finished=true}"}
+    3: {"msg":"Snapshot{marker=12575, status=4987580, operations=[], operationsSum=0, finished=true}"}
+    4: {"msg":"Snapshot{marker=12575, status=5047773, operations=[credit 12414, debit 21312, credit 10393, credit 29921], operationsSum=52728, finished=true}"}
+    ```
+
 4) `vagrant destroy -f`
