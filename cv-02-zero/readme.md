@@ -92,13 +92,10 @@ Součet parametrů `status` a `operationsSum` dá celkovou hodnotu peněz v obě
 
 ## Spuštění ukázky – více strojů (vagrant)
 Stejná konfigurace jako `run-local_4.sh`.
+Rozdíl je v tom, že uzly jsou spuštěny každý na vlastním virtuálním stroji s vlastní adresou.
+Loguje se do stejných souborů jako výše.
 
 1) `mvn package`
-2) `wsl`
-3) `vagrant up`
-4) `vagrant ssh bank1`
-    (pass: vagrant)
-5) `cd /vagrant`
-6) TODO
-7) `exit`
-8) `vagrant destroy -f`
+2) `vagrant up`
+3) `./vagrant_run-snapshot.sh` – spustí checkout z prvního uzlu. Možno spouštět opakovaně.
+4) `vagrant destroy -f`
