@@ -275,6 +275,10 @@ public class Bank {
         return snapshots.get(marker);
     }
 
+    public Set<Integer> getSnapshots() {
+        return snapshots.keySet();
+    }
+
     public int scheduleSnapshot(final int marker) {
         FutureTask<Void> task = new FutureTask<>(new Callable<Void>() {
             @Override
