@@ -53,7 +53,6 @@ printf "\n"
 printf "4: "
 curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET http://localhost:8084/snapshot/42/status
 printf "\n"
-printf "Note: for validation summarize status and operationsSum values\n"
 
 sleep 1s
 

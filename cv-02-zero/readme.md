@@ -57,6 +57,34 @@ Komplexní příklady viz ukázky.
     | /       |
     4---------3
     ```
+    
+    Example output:
+    ```
+    Starting...
+    
+    Check status...
+    1: {"msg":"Balance: 4964586"}
+    2: {"msg":"Balance: 4933276"}
+    3: {"msg":"Balance: 5101719"}
+    4: {"msg":"Balance: 4947540"}
+    
+    Create snapshot...
+    {"msg":"Snapshot scheduled with id=42"}
+    
+    Waiting for snapshot to complete...
+    
+    Print snapshot...
+    1: {"msg":"Snapshot{marker=42, status=4978838, operations=[credit 28468, credit 12311, debit 37703, credit 21734], operationsSum=62513, finished=true}"}
+    2: {"msg":"Snapshot{marker=42, status=4881662, operations=[credit 26664, credit 24075], operationsSum=50739, finished=true}"}
+    3: {"msg":"Snapshot{marker=42, status=5130667, operations=[], operationsSum=0, finished=true}"}
+    4: {"msg":"Snapshot{marker=42, status=4871822, operations=[credit 23759], operationsSum=23759, finished=true}"}
+    
+    Shutting down nodes...
+    1: {"msg":"Ok"}
+    2: {"msg":"Ok"}
+    3: {"msg":"Ok"}
+    4: {"msg":"Ok"}
+    ```
 
 Logy lze pak najít v tomto adresáři.
 Nastavte delší prodlevy pokud se snapshot nestačí provést (pokud finished=false).
