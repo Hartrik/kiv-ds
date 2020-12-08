@@ -1,18 +1,18 @@
 #!/bin/sh
 
 printf "Simple example with four nodes:\n"
-printf "1+-------+2\n"
-printf "+         +\n"
-printf "|         |\n"
-printf "+         +\n"
-printf "4+-------+3\n"
+printf "1---------2\n"
+printf "|     __/ |\n"
+printf "|  __/    |\n"
+printf "| /       |\n"
+printf "4---------3\n"
 printf "\n"
 
 printf "Starting...\n"
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8081 localhost:8091 localhost:8093 1>log-server-1.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8082 localhost:8093 localhost:8095 1>log-server-2.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8083 localhost:8095 localhost:8097 1>log-server-3.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8084 localhost:8097 localhost:8091 1>log-server-4.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8081 localhost:8091,localhost:8092 localhost:8093,localhost:8098 1>log-server-1.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8082 localhost:8093,localhost:8094,localhost:8100 localhost:8091,localhost:8095,localhost:8099 1>log-server-2.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8083 localhost:8095,localhost:8096 localhost:8094,localhost:8097 1>log-server-3.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8084 localhost:8097,localhost:8098,localhost:8099 localhost:8096,localhost:8092,localhost:8100 1>log-server-4.txt 2>&1 &
 sleep 2s
 
 printf "\nCheck status...\n"
@@ -38,7 +38,7 @@ curl -H "Accept: application/json" -H "Content-Type: application/json" -X GET ht
 printf "\n"
 
 printf "\nWaiting for snapshot to complete...\n"
-sleep 5s
+sleep 7s
 
 printf "\nPrint snapshot...\n"
 printf "1: "

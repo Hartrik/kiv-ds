@@ -50,9 +50,17 @@ Komplexní příklady viz ukázky.
 1) `mvn package`
 2) `./run-local_2.sh` – jednoduchý příklad jen se dvěma uzly.
 3) `./run-local_4.sh` – složitější příklad se čtyřmi uzly.
+    ```
+    1---------2
+    |     __/ |
+    |  __/    |
+    | /       |
+    4---------3
+    ```
 
 Logy lze pak najít v tomto adresáři.
-Nastavte delší prodlevy pokud se snapshot nestačí provést.
+Nastavte delší prodlevy pokud se snapshot nestačí provést (pokud finished=false).
+Součet parametrů `status` a `operationsSum` dá celkovou hodnotu peněz v oběhu.
 
 ## Spuštění ukázky – více strojů (vagrant)
 Stejná konfigurace jako `run-local_4.sh`.
