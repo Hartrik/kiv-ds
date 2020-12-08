@@ -9,10 +9,10 @@ printf "4---------3\n"
 printf "\n"
 
 printf "Starting...\n"
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8081 localhost:8091,localhost:8092 localhost:8093,localhost:8098 1>log-server-1.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8082 localhost:8093,localhost:8094,localhost:8100 localhost:8091,localhost:8095,localhost:8099 1>log-server-2.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8083 localhost:8095,localhost:8096 localhost:8094,localhost:8097 1>log-server-3.txt 2>&1 &
-nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8084 localhost:8097,localhost:8098,localhost:8099 localhost:8096,localhost:8092,localhost:8100 1>log-server-4.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8081 *:8091,*:8092 localhost:8093,localhost:8098 1>log-server-1.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8082 *:8093,*:8094,*:8100 localhost:8091,localhost:8095,localhost:8099 1>log-server-2.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8083 *:8095,*:8096 localhost:8094,localhost:8097 1>log-server-3.txt 2>&1 &
+nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8084 *:8097,*:8098,*:8099 localhost:8096,localhost:8092,localhost:8100 1>log-server-4.txt 2>&1 &
 sleep 5s
 
 printf "\nCheck status...\n"

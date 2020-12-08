@@ -17,7 +17,7 @@ A my do toho můžeme zvenčí spustit snapshot, ze kterého je vidět aktuáln�
     ```
     java -jar target/server-1.0.0-SNAPSHOT.jar
             <port REST serveru (pro spouštění snapshotů, vypínání...)>
-            <seznam localhost:PORT oddělené čárkou k vytvoření (bind)>
+            <seznam *:PORT oddělené čárkou k vytvoření (bind)>
             <seznam ADRESA:PORT oddělené čárkou k připojení (connect)>
     ```
     Adresy v seznamech tvoří páry.
