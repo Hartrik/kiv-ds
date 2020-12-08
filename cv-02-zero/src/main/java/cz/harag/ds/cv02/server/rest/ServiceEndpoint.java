@@ -67,6 +67,7 @@ public class ServiceEndpoint {
                 System.exit(0);
             }
         });
+        thread.setDaemon(true);
         thread.start();
         return new Response("Ok");
     }

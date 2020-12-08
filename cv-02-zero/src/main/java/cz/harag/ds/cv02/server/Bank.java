@@ -112,6 +112,7 @@ public class Bank {
     private void bind(final BankConnection address) throws IOException {
         ZMQ.Socket socket = context.createSocket(SocketType.PAIR);
         socket.bind("tcp://" + address.getBindAddress());
+        log("Bind complete: %s%n", address.getBindAddress());
 
         while (!Thread.currentThread().isInterrupted()) {
             // Block until a message is received

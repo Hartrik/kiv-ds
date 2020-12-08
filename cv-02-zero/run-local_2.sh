@@ -4,7 +4,7 @@ printf "Simple example with only two nodes.\n"
 printf "Starting...\n"
 nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8081 localhost:8091 localhost:8092 1>log-server-1.txt 2>&1 &
 nohup java -jar target/server-1.0.0-SNAPSHOT.jar 8082 localhost:8092 localhost:8091 1>log-server-2.txt 2>&1 &
-sleep 2s
+sleep 5s
 
 printf "\nCheck status...\n"
 
